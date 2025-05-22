@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Convene Dashboard Report - Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 350px; max-height: 450px; }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+        .stat-card { background-color: white; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); padding: 1.5rem; text-align: center; }
+        .section-title { font-size: 2.25rem; font-weight: 700; margin-bottom: 1.5rem; color: #1e293b; border-bottom: 3px solid; padding-bottom: 0.5rem; }
+        .sub-section-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #334155; }
+        .narrative-text { font-size: 1rem; color: #475569; margin-bottom: 1.5rem; line-height: 1.6; }
+        .highlight-stat { font-size: 3rem; font-weight: 800; }
+        /* Energetic & Playful Palette: Orange: #FF8C00, Teal: #008080, Purple: #8A2BE2, Pink: #FF69B4, Yellow: #FFD700 */
+        .palette-orange { color: #FF8C00; }
+        .palette-teal { color: #008080; }
+        .palette-purple { color: #8A2BE2; }
+        .palette-pink { color: #FF69B4; }
+        .palette-yellow { color: #FFD700; }
+        .border-palette-orange { border-color: #FF8C00; }
+        .border-palette-teal { border-color: #008080; }
+        .border-palette-purple { border-color: #8A2BE2; }
+        .border-palette-pink { border-color: #FF69B4; }
+        .border-palette-yellow { border-color: #FFD700; }
+
+        .table-container { max-height: 400px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 0.5rem;}
+        .sticky-header th { position: sticky; top: 0; background-color: #f8fafc; z-index: 10; }
+    </style>
+</head>
+<body class="text-slate-800">
+    <div class="container mx-auto p-4 sm:p-6 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl sm:text-5xl font-extrabold palette-teal">Global Convene Dashboard</h1>
+            <p class="text-xl text-slate-600 mt-2">(2022-2024 Insights)</p>
+        </header>
+
+        <section id="overview" class="mb-16">
+            <h2 class="section-title border-palette-orange">1. Global Footprint & Engagement</h2>
+            <p class="narrative-text">
+                This section provides a high-level overview of Global Convene's reach and key engagement metrics as of 2024. 
+                It highlights the scale of partnerships, international involvement, and the core gatherings that form the backbone of our community.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="stat-card">
+                    <p class="text-lg font-semibold palette-orange mb-1">Partners Involved (2024)</p>
+                    <p class="highlight-stat palette-orange">180</p>
+                </div>
+                <div class="stat-card">
+                    <p class="text-lg font-semibold palette-teal mb-1">Countries Involved</p>
+                    <p class="highlight-stat palette-teal">23</p>
+                </div>
+                <div class="stat-card">
+                    <p class="text-lg font-semibold palette-purple mb-1">Active Regions</p>
+                    <p class="highlight-stat palette-purple">8</p>
+                    <p class="text-sm text-slate-500">(10 Regional Leaders)</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                <div class="stat-card">
+                    <h3 class="sub-section-title palette-pink">Family Gathering (Berlin)</h3>
+                    <p class="text-slate-600 mb-2">A cornerstone event fostering deep connections.</p>
+                    <p class="highlight-stat palette-pink">85</p>
+                    <p class="text-lg font-medium text-slate-700">Attendees</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="sub-section-title palette-yellow">Executive Committee</h3>
+                    <p class="text-slate-600 mb-2">Dedicated virtual meetings driving strategy.</p>
+                    <p class="highlight-stat palette-yellow">2 <span class="text-2xl">hrs</span></p>
+                    <p class="text-lg font-medium text-slate-700">Monthly Meeting Duration</p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-10">
+                <h3 class="sub-section-title palette-teal">Regional Gathering Attendance (2024)</h3>
+                <p class="narrative-text">
+                    Regional gatherings are pivotal for localized engagement. The chart below illustrates the distribution of attendees across key regions in 2024, showcasing areas of strong participation.
+                </p>
+                <div class="chart-container">
+                    <canvas id="regionalAttendanceChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="sub-section-title palette-purple">Church Partner Engagement Growth</h3>
+                 <p class="narrative-text">
+                    Our network of church partners is vital. This chart tracks the year-over-year engagement from key church partners, highlighting growth trends.
+                </p>
+                <div class="chart-container" style="height: 450px;">
+                    <canvas id="churchPartnerGrowthChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="leadership" class="mb-16">
+            <h2 class="section-title border-palette-teal">2. Leadership Landscape</h2>
+            <p class="narrative-text">
+                Understanding our leadership demographics is crucial for future development and inclusivity. This section breaks down leadership by generation and tracks engagement over time.
+            </p>
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-10">
+                <h3 class="sub-section-title palette-orange">Leadership by Generation (2024 Snapshot)</h3>
+                <p class="narrative-text">
+                    The following chart displays the composition of our leadership team by generation in 2024, offering insights into our current demographic spread. Total leaders in 2024: 147.
+                </p>
+                <div class="chart-container">
+                    <canvas id="leadershipByGenerationChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-10">
+                <h3 class="sub-section-title palette-pink">Leadership Generational Trends (2022-2025)</h3>
+                 <p class="narrative-text">
+                    This line chart illustrates the trends in leadership numbers across different generations from 2022 to 2025 (projected), showing growth patterns and shifts.
+                </p>
+                <div class="chart-container">
+                    <canvas id="leadershipTrendsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="stat-card mt-10">
+                <p class="text-lg font-semibold palette-purple mb-1">Next-Gen Disciples Engaged (Active)</p>
+                <p class="highlight-stat palette-purple">350</p>
+            </div>
+        </section>
+
+        <section id="executive-hours" class="mb-16">
+            <h2 class="section-title border-palette-purple">3. Executive Committee Commitment</h2>
+            <p class="narrative-text">
+                The dedication of our Executive Committee is measured not just in participation but also in time invested. This section highlights their monthly commitment.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="stat-card">
+                    <p class="text-lg font-semibold palette-orange mb-1">Monthly Hours per Member</p>
+                    <p class="highlight-stat palette-orange">5 <span class="text-2xl">hrs</span></p>
+                </div>
+                <div class="stat-card">
+                    <p class="text-lg font-semibold palette-teal mb-1">Total Monthly Hours</p>
+                    <p class="highlight-stat palette-teal">50 <span class="text-2xl">hrs</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="initiatives" class="mb-16">
+            <h2 class="section-title border-palette-pink">4. Sector Initiatives & Impact</h2>
+            <p class="narrative-text">
+                Global Convene drives impact through various sector-specific initiatives. The table below details engagement numbers for these programs over the years, reflecting their growth and reach.
+            </p>
+            <div class="bg-white rounded-lg shadow-lg p-6 table-container">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="sticky-header">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sector</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Initiative</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">2022</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">2023</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">2024</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">2025 (Proj.)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Arts and Media</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Village Worship Initiative</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">22</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">22</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">40</td></tr>
+                        <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Business and Economics</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Resource Global</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td></tr>
+                        <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Church and Mission</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Residency Program</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">6</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">6</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0</td></tr>
+                        <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Family and Education</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">El Pozo De Vida / Star-Kids Alliance</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td></tr>
+                        <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Health and Environment</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Medical Professionals</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3</td></tr>
+                        <tr><td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Politics and Governance</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Global Unites</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="funding" class="mb-16">
+            <h2 class="section-title border-palette-yellow">5. Financial Overview</h2>
+            <p class="narrative-text">
+                This section outlines the financial support for Global Convene, detailing both monetary contributions and valuable in-kind support that enables our mission.
+            </p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="sub-section-title palette-orange">Monetary Contributions by Year</h3>
+                    <p class="narrative-text">Tracking financial contributions over time from our key supporters.</p>
+                    <div class="chart-container" style="height: 450px;">
+                        <canvas id="monetaryContributionsChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="sub-section-title palette-teal">In-Kind Contributions</h3>
+                    <p class="narrative-text">Valuable non-monetary support received, broken down by category. Total In-kind: $17,500.00</p>
+                     <div class="chart-container">
+                        <canvas id="inKindContributionsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-12 py-8 border-t border-slate-300">
+            <p class="text-slate-600">&copy; 2025 Global Convene. All rights reserved.</p>
+        </footer>
+    </div>
+
+<script>
+    const chartColors = {
+        orange: '#FF8C00',
+        teal: '#008080',
+        purple: '#8A2BE2',
+        pink: '#FF69B4',
+        yellow: '#FFD700',
+        lightBlue: '#60a5fa', // For additional series
+        lightGreen: '#34d399' // For additional series
+    };
+
+    function wrapLabels(label, maxWidth) {
+        if (typeof label !== 'string' || label.length <= maxWidth) {
+            return label;
+        }
+        const words = label.split(' ');
+        const lines = [];
+        let currentLine = '';
+        for (const word of words) {
+            if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                lines.push(currentLine.trim());
+                currentLine = '';
+            }
+            currentLine += word + ' ';
+        }
+        lines.push(currentLine.trim());
+        return lines;
+    }
+
+    const commonTooltipTitleCallback = function(tooltipItems) {
+        const item = tooltipItems[0];
+        let label = item.chart.data.labels[item.dataIndex];
+        if (Array.isArray(label)) {
+            return label.join(' ');
+        }
+        return label;
+    };
+    
+    const commonChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    title: commonTooltipTitleCallback
+                },
+                backgroundColor: 'rgba(0,0,0,0.7)',
+                titleFont: { size: 14, weight: 'bold' },
+                bodyFont: { size: 12 },
+                padding: 10,
+                cornerRadius: 4
+            },
+            legend: {
+                labels: {
+                    font: { size: 12, family: 'Inter' },
+                    color: '#334155'
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: { 
+                    font: { size: 10, family: 'Inter' },
+                    color: '#475569'
+                },
+                grid: { color: '#e2e8f0' }
+            },
+            x: {
+                ticks: { 
+                    font: { size: 10, family: 'Inter' },
+                    color: '#475569',
+                    callback: function(value, index, values) {
+                        const label = this.getLabelForValue(value);
+                        return wrapLabels(label, 10); // Shorter wrap for x-axis
+                    }
+                },
+                grid: { display: false }
+            }
+        }
+    };
+
+    // Regional Attendance Chart (2024) - Bar Chart
+    const regionalData2024 = {
+        'Europe': 20,
+        'Middle East/North Africa': 55,
+        'South/East/Central Africa': 82,
+        'Southeast Asia': 25,
+        'East Asia': 5,
+        'North America': 27,
+        'West Africa': 0,
+        'Southern Africa': 4,
+        'Central Asia': 2,
+        'Oceania': 5,
+        'Central America': 21
+    };
+    const regionalLabels = Object.keys(regionalData2024).map(label => wrapLabels(label, 16));
+    const regionalAttendanceCtx = document.getElementById('regionalAttendanceChart').getContext('2d');
+    new Chart(regionalAttendanceCtx, {
+        type: 'bar',
+        data: {
+            labels: regionalLabels,
+            datasets: [{
+                label: 'Attendees in 2024',
+                data: Object.values(regionalData2024),
+                backgroundColor: chartColors.teal,
+                borderColor: chartColors.teal,
+                borderWidth: 1,
+                borderRadius: 4,
+            }]
+        },
+        options: commonChartOptions
+    });
+
+    // Church Partner Growth Chart - Line Chart
+    // Showing top 5 partners by 2024 engagement for clarity
+    const churchPartnerData = [
+        { name: 'KDEC-Egypt', y2022: 8, y2023: 25, y2024: 45, y2025: 45 },
+        { name: 'Mariners Church, USA', y2022: 18, y2023: 22, y2024: 22, y2025: 25 },
+        { name: 'Mavuno Church-Kenya', y2022: 7, y2023: 15, y2024: 20, y2025: 25 },
+        { name: 'Kithu Sevana, Sri Lanka', y2022: 5, y2023: 12, y2024: 12, y2025: 12 },
+        { name: 'Nairobi Chapel Kenya', y2022: 5, y2023: 8, y2024: 10, y2025: 18 },
+    ];
+    const churchPartnerGrowthCtx = document.getElementById('churchPartnerGrowthChart').getContext('2d');
+    new Chart(churchPartnerGrowthCtx, {
+        type: 'line',
+        data: {
+            labels: ['2022', '2023', '2024', '2025 (Proj.)'],
+            datasets: churchPartnerData.map((partner, index) => ({
+                label: wrapLabels(partner.name, 16),
+                data: [partner.y2022, partner.y2023, partner.y2024, partner.y2025],
+                borderColor: Object.values(chartColors)[index % Object.keys(chartColors).length],
+                backgroundColor: Object.values(chartColors)[index % Object.keys(chartColors).length] + '33', // Add some transparency
+                tension: 0.1,
+                fill: false
+            }))
+        },
+        options: commonChartOptions
+    });
+    
+    // Leadership by Generation (2024) - Pie Chart
+    const leadershipGenData2024 = {
+        'Boomers/Elders': 13,
+        'Gen X': 20,
+        'Millennials': 86,
+        'Gen Z': 28
+    };
+    const leadershipByGenerationCtx = document.getElementById('leadershipByGenerationChart').getContext('2d');
+    new Chart(leadershipByGenerationCtx, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(leadershipGenData2024).map(label => wrapLabels(label, 16)),
+            datasets: [{
+                label: 'Leaders in 2024',
+                data: Object.values(leadershipGenData2024),
+                backgroundColor: [chartColors.yellow, chartColors.pink, chartColors.teal, chartColors.orange],
+                hoverOffset: 4
+            }]
+        },
+        options: { ...commonChartOptions, scales: { x: { display: false }, y: { display: false } } }
+    });
+
+    // Leadership Generational Trends (2022-2025) - Line Chart
+    const leadershipTrendsCtx = document.getElementById('leadershipTrendsChart').getContext('2d');
+    new Chart(leadershipTrendsCtx, {
+        type: 'line',
+        data: {
+            labels: ['2022', '2023', '2024', '2025 (Proj.)'],
+            datasets: [
+                { label: 'Boomers/Elders', data: [14, 13, 13, 13], borderColor: chartColors.yellow, fill: false, tension: 0.1 },
+                { label: 'Gen X', data: [10, 20, 20, 20], borderColor: chartColors.pink, fill: false, tension: 0.1 },
+                { label: 'Millennials', data: [22, 55, 86, 163], borderColor: chartColors.teal, fill: false, tension: 0.1 },
+                { label: 'Gen Z', data: [45, 82, 28, 88], borderColor: chartColors.orange, fill: false, tension: 0.1 }
+            ]
+        },
+        options: commonChartOptions
+    });
+
+    // Monetary Contributions Chart - Grouped Bar
+    const monetaryContributionsCtx = document.getElementById('monetaryContributionsChart').getContext('2d');
+    new Chart(monetaryContributionsCtx, {
+        type: 'bar',
+        data: {
+            labels: ['2022', '2023', '2024', '2025', '2026', '2027'],
+            datasets: [
+                {
+                    label: 'Mariners',
+                    data: [45000, 225000, 95000, 155000, 270000, 200000],
+                    backgroundColor: chartColors.orange,
+                    borderRadius: 4,
+                },
+                {
+                    label: 'Global Family',
+                    data: [5000, 35000, 5000, 20000, 30000, 50000],
+                    backgroundColor: chartColors.purple,
+                    borderRadius: 4,
+                }
+            ]
+        },
+        options: {
+            ...commonChartOptions,
+            scales: {
+                 y: { ...commonChartOptions.scales.y, ticks: { ...commonChartOptions.scales.y.ticks, callback: value => '$' + (value/1000) + 'K' } },
+                 x: { ...commonChartOptions.scales.x }
+            }
+        }
+    });
+
+    // In-Kind Contributions Chart - Doughnut Chart
+    const inKindData = {
+        'Hosting Residency': 1500,
+        'Meals': 3000,
+        'Accommodations': 8000,
+        'Travel Subsidy': 5000
+    };
+    const inKindContributionsCtx = document.getElementById('inKindContributionsChart').getContext('2d');
+    new Chart(inKindContributionsCtx, {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(inKindData).map(label => wrapLabels(label, 16)),
+            datasets: [{
+                label: 'In-Kind Contribution Amount',
+                data: Object.values(inKindData),
+                backgroundColor: [chartColors.teal, chartColors.pink, chartColors.yellow, chartColors.lightBlue],
+                hoverOffset: 4,
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: { ...commonChartOptions, scales: { x: { display: false }, y: { display: false } } }
+    });
+
+</script>
+</body>
+</html>
